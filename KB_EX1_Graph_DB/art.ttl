@@ -1,0 +1,286 @@
+@prefix art: <http://www.art-ontology.com/fmi#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+art:birthPlace a owl:ObjectProperty ;
+	rdfs:commment "Place where is born person"@en ;
+	rdfs:label "birthPlace"@en ;
+	rdfs:domain art:Person;
+	rdfs:range art:Location .
+
+
+art:creationPlace a owl:ObjectProperty ;
+	rdfs:commment "Place where is create the artwork"@en ;
+	rdfs:label "creationPlace"@en ;
+	rdfs:domain art:ArtWork;
+	rdfs:range art:Location .
+
+art:creatorOf a owl:ObjectProperty ;
+	rdfs:commment "Person who is create the artwork"@en ;
+	rdfs:label "creatorOf"@en ;
+	rdfs:domain art:Person;
+	rdfs:range art:ArtWork .
+
+art:createBy a owl:ObjectProperty ;	
+	owl:inverseOf art:creatorOf.
+
+
+art:deathPlace a owl:ObjectProperty ;
+	rdfs:commment "Death place of person"@en ;
+	rdfs:label "deathPlace"@en ;
+	rdfs:domain art:Person;
+	rdfs:range art:Location .
+
+
+art:hasDirector a owl:ObjectProperty ;
+	rdfs:commment "Person who is director of the museum"@en ;
+	rdfs:label "hasDirector"@en ;
+	rdfs:domain art:Museum;
+	rdfs:range art:Person .
+
+
+art:hasProfession a owl:ObjectProperty ;
+	rdfs:commment "Profession of the person"@en ;
+	rdfs:label "hasProfession"@en ;
+	rdfs:domain art:Person;
+	rdfs:range art:Profession .
+
+art:inspiredOf a owl:ObjectProperty ;
+	rdfs:commment "Person who inspire other person"@en ;
+	rdfs:label "inspiredOf"@en ;
+	rdfs:domain art:Person;
+	rdfs:range art:Person .
+
+art:locationIn a owl:ObjectProperty ;
+	rdfs:commment "Location of the artwork"@en ;
+	rdfs:label "locationIn"@en ;
+	rdfs:domain art:ArtWork;
+	rdfs:range art:Museum .
+	
+art:contains a owl:ObjectProperty ;
+	owl:inverseOf art:locationIn.
+
+art:museumLocation a owl:ObjectProperty ;
+	rdfs:commment "Location of the museum"@en ;
+	rdfs:label "museumLocation"@en ;
+	rdfs:domain art:Museum;
+	rdfs:range art:Location .
+
+art:subRegionOf a owl:ObjectProperty , owl:TransitiveProperty, owl:ReflexiveProperty  ;
+	rdfs:domain art:Location ;
+	rdfs:range art:Location ;
+	rdfs:commment "Location whith is subregion of location"@en ;
+	rdfs:label "subRegionOf"@en .
+
+art:creationDate a owl:DatatypeProperty ;
+	rdfs:domain art:ArtWork .
+
+art:hasTitle a owl:DatatypeProperty ;
+	rdfs:domain art:ArtWork .
+
+art:locationName a owl:DatatypeProperty ;
+	rdfs:domain art:Location .
+
+art:museumName a owl:DatatypeProperty ;
+	rdfs:domain art:Museum .
+
+art:museumType a owl:DatatypeProperty ;
+	rdfs:domain art:Museum .
+
+art:museumVisitors a owl:DatatypeProperty ;
+	rdfs:domain art:Museum .
+
+art:style a owl:DatatypeProperty ;
+	rdfs:domain art:Person .
+	
+art:firstName a owl:DatatypeProperty ;
+	rdfs:domain art:Person .
+	
+art:lastName a owl:DatatypeProperty ;
+	rdfs:domain art:Person .
+
+art:Person a owl:Class ;
+	rdfs:comment "Person"@en ;
+	rdfs:label "Person"@en.
+
+art:Location a owl:Class ;
+	rdfs:comment "Location"@en ;
+	rdfs:label "Location"@en.
+	
+art:City a owl:Class ;
+	rdfs:comment "City"@en ;
+	rdfs:label "City"@en;
+	rdfs:subClassOf art:Location .
+	
+art:Country a owl:Class ;
+	rdfs:comment "Country"@en ;
+	rdfs:label "Country"@en;
+	rdfs:subClassOf art:Location .
+	
+art:District a owl:Class ;
+	rdfs:comment "district of city"@en ;
+	rdfs:label "District"@en;
+	rdfs:subClassOf art:Location .
+
+art:ArtWork a owl:Class;
+			rdfs:comment "A work of art, artwork, art piece, piece of art or art object is an aesthetic physical item or artistic creation"@en ;
+			rdfs:label "ArtWork"@en.
+			
+art:Artist a owl:Class ;
+	rdfs:comment "An artist is a person wirh proffesion artist/ creator of art"@en ;
+	rdfs:label "Artist"@en;
+	rdfs:subClassOf art:Profession .
+
+art:Director a owl:Class ;
+	rdfs:comment "An director is a person wirh proffesion director of museum"@en ;
+	rdfs:label "Director"@en;
+	rdfs:subClassOf art:Profession .
+	
+art:Museum a owl:Class;
+		   rdfs:comment "A museum is an institution that cares for (conserves) a collection of artifacts and other objects of artistic"@en ;
+	       rdfs:label "Museum"@en.
+
+art:Painter a owl:Class ;
+	rdfs:comment "An painter is a person wirh proffesion painter/ creator of painting"@en ;
+	rdfs:label "Painter"@en;
+	rdfs:subClassOf art:Artist .
+
+art:Painting a owl:Class ;
+	rdfs:comment "Painting is the practice of applying paint, pigment, color or other medium to a solid surface."@en ;
+	rdfs:label "Painting"@en;
+	rdfs:subClassOf art:ArtWork .
+
+art:Profession a owl:Class;
+			rdfs:comment "Profession of the person"@en ;
+	        rdfs:label "Profession"@en.
+
+art:Sculptor a owl:Class ;
+	rdfs:comment "Sculptor is person with profession sculptor"@en ;
+	rdfs:label "Sculptor"@en;
+	rdfs:subClassOf art:Artist .
+
+art:Sculpture a owl:Class ;
+	rdfs:comment "Sculpture is the branch of the visual arts that operates in three dimensions"@en ;
+	rdfs:label "Sculpture"@en;
+	rdfs:subClassOf art:ArtWork .
+
+
+art:AdolpheMonticelli a art:Person ;
+	art:hasProfession art:Painter ;
+	art:firstName "Adolphe" ;
+	art:lastName "Monticelli" .
+	
+art:MichelangeloBuonarroti a art:Person;
+	art:hasProfession art:Sculptor ;
+	art:creatorOf art:Pieta;
+	art:firstName "Michelangelo" ;
+	art:lastName "Buonarroti" .
+
+art:ClaudeMonet a art:Person ;
+	art:creatorOf art:PondAtMontgeron ;
+	art:hasProfession art:Painter ;
+	art:firstName "Claude" ;
+	art:lastName "Monet" .
+
+art:Pieta a art:Sculpture ;
+	art:hasTitle "Pieta" ;
+	art:locationIn art:StPeterBasilica .
+	
+art:Flora a art:Painting ;
+	art:hasTitle "Flora" ;
+	art:locationIn art:Hermitage .
+
+art:StPeterBasilica a art:Museum ;
+	art:museumName "St. Peter's Basilica" ;
+	art:museumLocation art:Vatican .
+	
+art:Hermitage a art:Museum ;
+	art:museumName "Hermitage" ;
+	art:museumVisitors "2.5" ;
+	art:museumLocation art:Russia .
+	
+art:Italy a art:Country ;
+	art:locationName "Italy" .
+
+art:LadyWithAnErmine a art:Painting ;
+	art:creationDate "1489" ;
+	art:hasTitle "Lady with an Ermine" ;
+	art:creationPlace art:Milano ;
+	art:locationIn art:WawelCastle .
+	
+art:TheLastSupper a art:Painting ;
+	art:creationDate "1495" ;
+	art:hasTitle "The Last Supper" ;
+	art:creationPlace art:SanVittore ;
+	art:locationIn art:SantaMariaDelleGrazie .
+
+
+art:LeonardoDaVinci a art:Person ;
+	art:style "High Renaissance" ;
+	art:birthPlace art:Italy ;
+	art:creatorOf art:MonaLisa ;
+	art:creatorOf art:LadyWithAnErmine ;
+	art:creatorOf art:TheLastSupper;
+	art:hasProfession art:Painter ;
+	art:firstName "Leonardo" ;
+	art:lastName "Da Vinci" .
+
+art:Louvre a  art:Museum ;
+	art:museumName "Louvre" .
+
+art:Milano a art:City ;
+	art:subRegionOf art:Italy;
+	art:locationName "Milano" .
+	
+art:Vatican a art:City ;
+	art:subRegionOf art:Italy;
+	art:locationName "Vatican" .
+	
+art:SanVittore a art:District;
+	art:subRegionOf art:Milano;
+	art:locationName "SanVittore" .
+
+art:MonaLisa a art:Painting ;
+	art:hasTitle "Mona Lisa" ;
+	art:locationIn art:Louvre .
+
+art:Netherlands a art:Country ;
+	art:locationName "Netherlands" .
+
+art:Poland a art:Country ;
+	art:locationName "Poland" .
+
+art:PondAtMontgeron a  art:Painting ;
+	art:hasTitle "Pond At Montgeron" ;
+	art:locationIn art:Hermitage .
+
+art:RembrandtVanRijn a art:Person ;
+	art:creatorOf art:Flora ;
+	art:hasProfession art:Painter ;
+	art:firstName "Rembrandt" ;
+	art:lastName "Van Rijn" .
+
+art:Russia a art:Country ;
+	art:locationName "Russia" .
+
+art:ThePotatoEaters a art:Painting ;
+	art:hasTitle "The Potato Eaters" .
+
+art:VincentVanGogh a art:Person ;
+	art:style "Post Impressionism" ;
+	art:birthPlace art:Netherlands ;
+	art:creatorOf art:ThePotatoEaters ;
+	art:hasProfession art:Painter ;
+	art:inspiredOf art:AdolpheMonticelli ;
+	art:firstName "Vincent" ;
+	art:lastName "Van Gogh" .
+
+art:WawelCastle a art:Museum ;
+	art:museumLocation art:Poland .
+
+art:SantaMariaDelleGrazie a art:Museum;
+	art:museumLocation art:SanVittore .
