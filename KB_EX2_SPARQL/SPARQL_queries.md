@@ -36,7 +36,6 @@ All people:
 
 ```sh
 prefix onto:<http://www.ontotext.com/> 
-prefix onto:<http://www.ontotext.com/> 
 select ?s where
 { ?s a <http://www.art-ontology.com/fmi#Person> . }
 ```
@@ -138,6 +137,8 @@ art:birthPlace ?loc.
 ```
 	
 ## String operations and binding variables 
+
+Information about painters and their artworks in a single variable:
 
 
 ```sh
