@@ -10,8 +10,8 @@ All classes:
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
 PREFIX art: <http://www.art-ontology.com/fmi#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
-select ?class where{
-
+select ?class where
+{
 ?class rdf:type owl:Class;
 }
 ```
@@ -23,8 +23,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX art: <http://www.art-ontology.com/fmi#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-select ?subclass ?class where{
-
+select ?subclass ?class where
+{
 ?class rdf:type owl:Class.
 ?subclass rdfs:subClassOf ?class.
 }
@@ -45,8 +45,8 @@ also valid:
 ```sh
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
 PREFIX art: <http://www.art-ontology.com/fmi#>
-select ?person where{
-
+select ?person where
+{
 ?person rdf:type art:Person;
 }
 ```
@@ -62,7 +62,7 @@ select ?person  where
 }
 ```
 
-### Querying properties
+### 3. Querying properties
 
 All properties: 
 
@@ -71,8 +71,8 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX art: <http://www.art-ontology.com/fmi#>
 PREFIX owl: <http://www.w3.org/2002/07/owl#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-select ?p where{
-
+select ?p where
+{
 ?p rdf:type owl:ObjectProperty.
 }
 ```
@@ -96,21 +96,47 @@ describe ?person where
 ### 1. Union
 
 All paintings by Leonardo Da Vinci and Claude Monet:
+
+```sh
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>  
+PREFIX art: <http://www.art-ontology.com/fmi#>
+select ?person ?artWork where{ 
+{
+?person art:firstName ?fname;
+art:lastName ?sname;
+art:creatorOf ?artWork.
+filter( str(?fname) = "Leonardo" ).  
+filter( str(?sname) = "Da Vinci").
+}
+    UNION 
+{
+?person art:firstName ?fname;
+art:lastName ?sname;  
+art:creatorOf ?artWork.
+filter( str(?fname) = "Claude" ).  
+filter( str(?sname) = "Monet").
+    }} 
+```
+
+### 2. Minus
+
+All people, except for the ones born in Italy: 
+
 ```sh
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX art: <http://www.art-ontology.com/fmi#>
-select ?person ?artWork where{ {
-?person art:firstName ?fname;
-art:lastName ?sname;  art:hasProfession art:Painter;  art:creatorOf ?artWork.
-filter( str(?fname) = "Leonardo" ).  filter( str(?sname) = "Da Vinci").
-}
-    UNION
-{
-?person art:firstName ?fname;
-art:lastName ?sname;  art:hasProfession art:Painter;  art:creatorOf ?artWork.
-filter( str(?fname) = "Claude" ).  filter( str(?sname) = "Monet").
-    }}
+select ?person where{ 
+	{
+?person rdf:type art:Person;
+	}
+MINUS
+	{
+?person rdf:type art:Person;
+art:birthPlace ?loc.
+?loc art:locationName "Italy".
+    } }  
 ```
+	
 ## String operations and binding variables 
 
 
@@ -138,11 +164,13 @@ select ?person ?artWork where{
 art:style ?style .
 filter( str(?style) = "High Renaissance" ).
 ?person art:birthPlace ?loc.
-?loc art:locationName ?locname . filter( str(?locname) = "Italy" ).
+?loc art:locationName ?locname . 
+filter( str(?locname) = "Italy" ).
 ?person art:creatorOf ?artWork.
 ?artWork rdf:type art:Painting;
 art:locationIn ?museum.
-?museum art:museumName ?mname. filter( str(?mname) = "Louvre" ).
+?museum art:museumName ?mname. 
+filter( str(?mname) = "Louvre" ).
 }
 ```
 
