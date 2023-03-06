@@ -25,7 +25,7 @@ art:creatorOf a owl:ObjectProperty ;
 	rdfs:domain art:Person;
 	rdfs:range art:ArtWork .
 
-art:createBy a owl:ObjectProperty ;	
+art:createdBy a owl:ObjectProperty ;	
 	owl:inverseOf art:creatorOf.
 
 
